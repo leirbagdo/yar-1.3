@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Cadastro - Yarã</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            text-align: center;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-group input:focus {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+        .login-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: rgba(0,0,0,0.2);
+            padding: 5px;
+            border-radius: 50px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card glass">
+            <a href="../index.html" style="color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 30px;">
+                <i class="fas fa-arrow-left"></i> Voltar ao Início
+            </a>
+            
+            <div id="loginSection">
+                <h2 id="loginTitle" style="margin-bottom: 10px;">Bem-vindo de volta</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Acesse sua conta para gerenciar o portal.</p>
+
+                <div class="login-tabs">
+                    <div class="tab-btn active" onclick="switchLoginType('user')">Usuário</div>
+                    <div class="tab-btn" onclick="switchLoginType('adm')">Administrador</div>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" id="loginEmail" placeholder="exemplo@yara.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="loginPass" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-modern btn-primary" style="width: 100%; margin-top: 10px;">Entrar no Sistema</button>
+                </form>
+                
+                <p style="margin-top: 25px; font-size: 0.9rem; color: var(--text-muted);">
+                    Não tem uma conta? <a href="javascript:void(0)" onclick="toggleForms()" style="color: var(--accent); text-decoration: none;">Cadastre-se</a>
+                </p>
+            </div>
+
+            <div id="signupSection" class="hidden">
+                <h2 style="margin-bottom: 10px;">Criar Conta</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Junte-se à nossa comunidade.</p>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" id="signupNome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" id="signupEmail" placeholder="exemplo@yara.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="signupPass" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-modern btn-primary" style="width: 100%; margin-top: 10px;">Criar Conta</button>
+                </form>
+                
+                <p style="margin-top: 25px; font-size: 0.9rem; color: var(--text-muted);">
+                    Já tem uma conta? <a href="javascript:void(0)" onclick="toggleForms()" style="color: var(--accent); text-decoration: none;">Faça Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080';
+        let currentType = 'user';
+
+        function switchLoginType(type) {
+            currentType = type;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('loginTitle').innerText = type === 'user' ? 'Acesso do Usuário' : 'Portal do Administrador';
+        }
+
+        function toggleForms() {
+            document.getElementById('loginSection').classList.toggle('hidden');
+            document.getElementById('signupSection').classList.toggle('hidden');
+        }
+
+        // Verificar se veio para cadastrar
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('type') === 'signup') {
+            toggleForms();
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const senha = document.getElementById('loginPass').value;
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.setItem('yara_user', JSON.stringify(data.user));
+                    window.location.href = '../index.html';
+                } else {
+                    alert(data.message || 'Erro ao fazer login');
+                }
+            } catch (err) {
+                alert('Erro ao conectar com a API');
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('signupNome').value;
+            const email = document.getElementById('signupEmail').value;
+            const senha = document.getElementById('signupPass').value;
+
+            try {
+                const response = await fetch(`${API_URL}/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, senha })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Cadastro realizado com sucesso! Faça login para continuar.');
+                    toggleForms();
+                } else {
+                    alert(data.message || 'Erro ao cadastrar');
+                }
+            } catch (err) {
+                alert('Erro ao conectar com a API');
+            }
+        });
+    </script>
+</body>
+</html>

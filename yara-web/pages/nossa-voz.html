@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa Voz - Yarã</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .voice-page { padding: 120px 5% 60px; }
+        .voice-intro { text-align: center; max-width: 800px; margin: 0 auto 60px; }
+        .quote-card {
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .quote-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+        .author-info h4 { color: var(--accent); margin: 0; }
+        .author-info p { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+        .fa-quote-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            opacity: 0.05;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="pattern-bg"></div>
+    <nav class="nav-modern glass">
+        <div class="logo-area">
+            <img src="../assets/img/yara94.png" alt="Logo Yarã">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="nossa-voz.html" class="active">Nossa Voz</a>
+            <a href="biblioteca.html">Biblioteca</a>
+            <a href="tradutor.html">Tradutor</a>
+        </div>
+    </nav>
+
+    <main class="voice-page fade-in">
+        <div class="voice-intro">
+            <h1 style="font-size: 3rem; color: var(--accent);">Nossa Voz, Nossa Memória</h1>
+            <p>Mais do que palavras traduzidas, preservamos os sentimentos e as visões de mundo de quem vive e protege a ancestralidade no Maranhão.</p>
+        </div>
+
+        <div class="quote-card glass card-hover-effect">
+            <i class="fas fa-quote-left"></i>
+            <p class="quote-text">"A língua é a pele da nossa alma. Quando falamos nossa língua, as árvores nos escutam melhor e os espíritos dos nossos avós sorriem."</p>
+            <div class="quote-author">
+                <div class="author-img">MT</div>
+                <div class="author-info">
+                    <h4>Maíra Tenetehara</h4>
+                    <p>Liderança e Educadora - TI Arariboia</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-card glass card-hover-effect">
+            <i class="fas fa-quote-left"></i>
+            <p class="quote-text">"Preservar nossa fala não é olhar apenas para trás, é garantir que nossos filhos saibam quem são em um mundo que tenta fazê-los esquecer."</p>
+            <div class="quote-author">
+                <div class="author-img">CK</div>
+                <div class="author-info">
+                    <h4>Cacique Kanela</h4>
+                    <p>Guardião da Memória - Aldeia Escalvado</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px;">
+            <p style="color: var(--text-muted);">Você faz parte de uma comunidade indígena e quer compartilhar sua voz?</p>
+            <a href="contribuir.html" class="btn-modern btn-primary">Contar minha história</a>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <p>&copy; 2026 Projeto Yarã. Feito por pessoas, para pessoas.</p>
+    </footer>
+</body>
+</html>

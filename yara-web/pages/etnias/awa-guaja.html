@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awá-Guajá - Projeto Yarã</title>
+    <link rel="stylesheet" href="../../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .etnia-page { padding: 120px 5% 60px; }
+        .etnia-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        .etnia-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .info-item {
+            padding: 20px;
+            text-align: center;
+        }
+        .info-item i { color: var(--accent); font-size: 1.5rem; margin-bottom: 10px; }
+        .section-title {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .content-block { margin-bottom: 40px; line-height: 1.8; color: var(--text-muted); }
+        
+        /* Estilos do Mini Mapa */
+        .mini-map-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .map-ma-svg { width: 100%; height: auto; }
+        .region-path {
+            fill: rgba(255, 255, 255, 0.05);
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 2;
+        }
+        .region-path.active {
+            fill: var(--accent);
+            fill-opacity: 0.6;
+            stroke: var(--accent);
+        }
+        .region-label { display: none; }
+
+        @media (max-width: 768px) {
+            .etnia-header { grid-template-columns: 1fr; }
+            .etnia-img { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="pattern-bg"></div>
+    <nav class="nav-modern glass">
+        <div class="logo-area">
+            <img src="../../assets/img/yara94.png" alt="Logo Yarã">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../index.html#mapa">Mapa</a>
+            <a href="../tradutor.html">Tradutor</a>
+            <a href="../agente.html">Agente IA</a>
+        </div>
+    </nav>
+
+    <main class="etnia-page fade-in">
+        <div class="etnia-header">
+            <div>
+                <span style="color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Região norte</span>
+                <h1 style="font-size: 3.5rem; margin: 10px 0;">Awá-Guajá</h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted);">Um dos últimos povos caçadores-coletores nômades das Américas, vivendo em isolamento voluntário em partes do território.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item glass">
+                        <i class="fas fa-language"></i>
+                        <span style="display:block; font-size: 0.8rem; color: var(--text-muted);">Língua</span>
+                        <strong>Guajá (Tupi-Guarani)</strong>
+                    </div>
+                    <div class="info-item glass">
+                        <i class="fas fa-users"></i>
+                        <span style="display:block; font-size: 0.8rem; color: var(--text-muted);">População</span>
+                        <strong>500 (contatados)</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <img src="" alt="Awá-Guajá" class="etnia-img">
+                <div class="mini-map-container glass">
+                    <p style="font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; color: var(--accent);">Localização no Maranhão</p>
+                    <div id="miniMap"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass" style="padding: 40px; border-radius: 30px;">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Cultura e Tradição</h2>
+            <div class="content-block">
+                <p>O povo Awá-Guajá possui uma cosmovisão única, profundamente ligada aos ciclos da natureza e à preservação de suas terras ancestrais no Maranhão. Suas tradições orais são o pilar de sua resistência, transmitindo conhecimentos sobre medicina tradicional, rituais sagrados e a história de seus antepassados.</p>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-shield-alt"></i> Luta e Território</h2>
+            <div class="content-block">
+                <p>Localizados na região norte do estado, os Awá-Guajá enfrentam desafios contemporâneos para a proteção de seus territórios contra invasões e o desmatamento. O Projeto Yarã atua como um aliado tecnológico na documentação de sua língua e na amplificação de suas vozes para o mundo.</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="../tradutor.html" class="btn-modern btn-primary">Traduzir para Guajá (Tupi-Guarani)</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <p>&copy; 2026 Projeto Yarã. Valorizando a diversidade do Maranhão.</p>
+    </footer>
+
+    <script src="../../assets/js/map_generator.js"></script>
+    <script>
+        // Injetar o mapa e destacar a região
+        injectMap('miniMap');
+        highlightRegion('norte');
+    </script>
+</body>
+</html>

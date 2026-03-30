@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Real do Maranhão - Yarã</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <style>
+        .map-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 40px;
+        }
+        .ma-svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+        }
+        .ma-path {
+            fill: rgba(15, 118, 110, 0.4);
+            stroke: var(--accent);
+            stroke-width: 500; /* Ajustado para o viewBox grande */
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .ma-path:hover {
+            fill: var(--accent);
+            fill-opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container glass">
+        <h2 style="text-align: center; color: var(--accent); margin-bottom: 30px;">Geografia Real do Maranhão</h2>
+        <svg viewBox="0 0 198000 194010" class="ma-svg">
+            <!-- O path será inserido aqui via script para evitar problemas de tamanho no write -->
+            <path id="maPathReal" class="ma-path" d=""></path>
+        </svg>
+    </div>
+    <script>
+        // Carregar o path do arquivo (simulado para este exemplo)
+        fetch('../../ma_path.txt').then(r => r.text()).then(t => {
+            const d = t.replace('d="', '').replace('"', '');
+            document.getElementById('maPathReal').setAttribute('d', d);
+        });
+    </script>
+</body>
+</html>

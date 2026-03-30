@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribuição e Dados - Yarã</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .stats-page { padding: 120px 5% 60px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        .stat-card {
+            padding: 30px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+        .stat-label {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        .contribution-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; }
+        .form-control {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+        }
+        .form-control:focus { border-color: var(--accent); }
+        
+        /* Gráfico Simples em CSS */
+        .chart-container {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 2px solid var(--glass-border);
+        }
+        .bar {
+            flex: 1;
+            background: var(--primary);
+            position: relative;
+            border-radius: 5px 5px 0 0;
+            transition: height 1s ease;
+        }
+        .bar:hover { background: var(--accent); }
+        .bar::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+        @media (max-width: 768px) {
+            .contribution-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-modern glass">
+        <div class="logo-area">
+            <img src="../assets/img/yara94.png" alt="Logo Yarã">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="contribuir.html" class="active">Dados</a>
+            <a href="tradutor.html">Tradutor</a>
+            <a href="agente.html">Agente IA</a>
+        </div>
+    </nav>
+
+    <main class="stats-page">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h1 style="font-size: 3rem; color: var(--accent);">Vitalidade & Dados</h1>
+            <p style="color: var(--text-muted);">Métricas de preservação e portal de colaboração da comunidade.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card glass card-hover-effect">
+                <span class="stat-value">11</span>
+                <span class="stat-label">Etnias Mapeadas</span>
+            </div>
+            <div class="stat-card glass card-hover-effect">
+                <span class="stat-value">15k+</span>
+                <span class="stat-label">Palavras Catalogadas</span>
+            </div>
+            <div class="stat-card glass card-hover-effect">
+                <span class="stat-value">8</span>
+                <span class="stat-label">Línguas Vivas</span>
+            </div>
+            <div class="stat-card glass card-hover-effect">
+                <span class="stat-value">450</span>
+                <span class="stat-label">Colaboradores</span>
+            </div>
+        </div>
+
+        <div class="contribution-section">
+            <div class="glass" style="padding: 40px;">
+                <h2 style="color: var(--accent); margin-bottom: 20px;">Sugira uma Tradução</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Ajude-nos a manter o dicionário atualizado enviando termos e variações regionais.</p>
+                <form>
+                    <div class="form-group">
+                        <label>Sua Etnia / Comunidade</label>
+                        <input type="text" class="form-control" placeholder="Ex: Guajajara de Arariboia">
+                    </div>
+                    <div class="form-group">
+                        <label>Palavra em Português</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Tradução Sugerida</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <button type="button" class="btn-modern btn-primary" style="width: 100%;">Enviar Sugestão</button>
+                </form>
+            </div>
+
+            <div class="glass" style="padding: 40px;">
+                <h2 style="color: var(--accent); margin-bottom: 20px;">Distribuição de Falantes</h2>
+                <div class="chart-container">
+                    <div class="bar" style="height: 90%;" data-label="Guajajara"></div>
+                    <div class="bar" style="height: 40%;" data-label="Ka'apor"></div>
+                    <div class="bar" style="height: 60%;" data-label="Canela"></div>
+                    <div class="bar" style="height: 25%;" data-label="Awá"></div>
+                    <div class="bar" style="height: 15%;" data-label="Gavião"></div>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 40px; text-align: center;">
+                    * Dados estimados baseados no Censo Indígena e registros locais.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <p>&copy; 2026 Projeto Yarã. Juntos preservando a voz do Maranhão.</p>
+    </footer>
+</body>
+</html>

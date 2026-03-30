@@ -1,0 +1,306 @@
+:root {
+    /* Cores Principais - Essência Verde Floresta & Terra */
+    --primary: #064e3b; /* Verde Floresta Profundo */
+    --primary-light: #187e63; /* Verde Gabriel */
+    --accent: #ffd54f; /* Amarelo Ouro (Accent original) */
+    --accent-glow: rgba(255, 213, 79, 0.4);
+    
+    /* Backgrounds - Inspirados no Tema Híbrido */
+    --bg-dark: #064e3b; /* Fundo verde floresta padrão */
+    --glass-bg: rgba(255, 255, 255, 0.14); /* Glassmorphism original */
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --terra-gradient: #8d6e63; /* Tom terra para gradientes */
+    --border-radius-organic: 20px;   
+    
+    /* Texto */
+    --text-main: #fdfdfd; /* Texto claro original */
+    --text-muted: #d7ccc8; /* Tom areia para textos secundários */
+    
+    /* Efeitos */
+    --shadow-lg: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Grafismos Indígenas Adaptados para a Essência */
+.pattern-bg {
+    background-image: url('https://i.ibb.co/6NPQ4hF/pattern.png'); /* Pattern original da essência */
+    opacity: 0.05;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* Scrollbar Customizada - Tema Floresta */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Efeito Magnético / Hover nos Cards - Essência de Movimento */
+.card-hover-effect {
+    transition: var(--transition);
+}
+.card-hover-effect:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-color: var(--accent);
+}
+
+/* Skeleton Loading - Suave */
+.skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif; /* Fonte da essência original */
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Gradiente baseado na essência Gabriel/Globalyara */
+    background-image: 
+        linear-gradient(160deg, var(--primary), var(--terra-gradient)),
+        radial-gradient(circle at 20% 20%, rgba(24, 126, 99, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255, 213, 79, 0.05) 0%, transparent 40%);
+}
+
+/* Glassmorphism Utility - Fiel à Essência */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Navigation - Estilo Navbar Globalyara */
+.nav-modern {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    padding: 14px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: linear-gradient(90deg, rgba(6, 78, 59, 0.8), rgba(141, 110, 99, 0.7));
+    border-radius: 14px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-area img {
+    height: 40px;
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+}
+
+.auth-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-modern {
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #333; /* Contraste melhor com o amarelo */
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--accent-glow);
+    background: #ffea75;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--glass-border);
+}
+
+.btn-ghost:hover {
+    background: var(--glass-bg);
+}
+
+/* Hero Section */
+.hero-v3 {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-v3 h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.hero-v3 p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+/* Mapa Interativo Container */
+.map-section-modern {
+    padding: 100px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.map-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.svg-container {
+    position: relative;
+    padding: 20px;
+}
+
+/* Region Info Card */
+.region-card {
+    padding: 40px;
+    min-height: 400px;
+}
+
+.region-card h2 {
+    color: var(--accent);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.tribe-list {
+    margin-top: 30px;
+    display: grid;
+    gap: 15px;
+}
+
+.tribe-item {
+    padding: 15px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+    text-decoration: none;
+    color: var(--text-main);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tribe-item:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateX(10px);
+    border-left: 4px solid var(--accent);
+}
+
+/* Footer - Estilo Globalyara */
+footer.modern-footer {
+    padding: 40px 5%;
+    background: linear-gradient(90deg, rgba(6, 78, 59, 0.8), rgba(141, 110, 99, 0.6));
+    border-top: 1px solid var(--glass-border);
+    text-align: center;
+    margin: 100px 12px 12px;
+    border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .map-grid { grid-template-columns: 1fr; }
+    .nav-modern { 
+        width: 95%; 
+        padding: 10px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yarã - Portal Indígena do Maranhão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <style>
+        .map-ma-svg {
+            width: 100%;
+            height: auto;
+            max-height: 650px;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+        }
+        .region-path {
+            fill: rgba(15, 118, 110, 0.25);
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 1.5;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .region-path:hover, .region-path.active {
+            fill: var(--accent);
+            fill-opacity: 0.7;
+            stroke: var(--accent);
+            filter: drop-shadow(0 0 15px var(--accent-glow));
+            transform: scale(1.01);
+        }
+        .region-label {
+            fill: white;
+            font-size: 12px;
+            font-weight: 700;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            opacity: 0.8;
+        }
+        .region-group:hover .region-label {
+            opacity: 1;
+            fill: var(--bg-dark);
+            text-shadow: none;
+        }
+        .user-greeting {
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="pattern-bg"></div>
+
+    <nav class="nav-modern glass">
+        <div class="logo-area" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            <img src="" alt="">
+            <span class="brand-name" style="font-weight: 800; font-size: 1.2rem; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="pages/nossa-voz.html">Nossa Voz</a>
+            <a href="pages/biblioteca.html">Biblioteca</a>
+            <a href="pages/timeline.html">História</a>
+            <a href="pages/contribuir.html">Dados</a>
+            <a href="pages/tradutor.html">Tradutor</a>
+            <a href="pages/agente.html">Agente IA</a>
+        </div>
+        <div class="auth-btns" id="authContainer">
+            <a href="pages/login.html" class="btn-modern btn-ghost">Entrar</a>
+            <a href="pages/login.html?type=signup" class="btn-modern btn-primary">Cadastrar</a>
+        </div>
+    </nav>
+
+    <header class="hero-v3">
+        <div class="hero-inner fade-in">
+            <span style="color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Tecnologia & Ancestralidade</span>
+            <h1 id="welcomeTitle">Onde o Maranhão se Encontra com suas Raízes</h1>
+            <p>Este é um espaço de escuta e aprendizado. Aqui, as tecnologias de hoje se curvam à sabedoria de milênios para manter vivas as vozes que sempre cuidaram desta terra.</p>
+            <a href="#mapa" class="btn-modern btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">Explorar Territórios</a>
+        </div>
+    </header>
+
+    <section id="mapa" class="map-section-modern">
+        <div class="map-grid">
+            <div class="svg-container glass" id="mapContainer">
+                <!-- O mapa geográfico fiel será injetado aqui pelo script -->
+            </div>
+
+            <div class="region-info-area">
+                <div id="regionDetails" class="region-card glass">
+                    <div id="defaultMsg">
+                        <h2 style="color: var(--accent);">Territórios de Afeto</h2>
+                        <p>Cada contorno deste mapa carrega histórias, cantos e memórias. Escolha uma região para conhecer as mãos e as vozes que mantêm o Maranhão vivo e pulsante.</p>
+                        <div style="margin-top: 40px; opacity: 0.2; text-align: center;">
+                            <i class="fas fa-map-marked-alt fa-6x"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="regionContent" style="display: none;">
+                        <h2 id="regionTitle" style="color: var(--accent); font-size: 2.2rem;">Região</h2>
+                        <p id="regionDesc" style="color: var(--text-muted); margin-bottom: 25px;">Descrição da região.</p>
+                        <h4 style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 15px;">Povos da Região:</h4>
+                        <div class="tribe-list" id="tribeList">
+                            <!-- Inserido via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="modern-footer">
+        <div class="logo-area" style="justify-content: center; margin-bottom: 20px;">
+            <img src="" alt="">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <p style="color: var(--text-muted);">&copy; 2026 Projeto Yarã - Mapeando a história. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="assets/js/map_generator.js"></script>
+    <script>
+        // Injetar o mapa geográfico fiel
+        injectMap('mapContainer');
+
+        // Lógica de Usuário Logado
+        function checkUser() {
+            const userJson = localStorage.getItem('yara_user');
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                const authContainer = document.getElementById('authContainer');
+                authContainer.innerHTML = `
+                    <span class="user-greeting">Olá, ${user.nome.split(' ')[0]}!</span>
+                    <button onclick="logout()" class="btn-modern btn-ghost" style="padding: 8px 15px;">Sair</button>
+                `;
+                document.getElementById('welcomeTitle').innerText = `Olá, ${user.nome}! Bem-vindo ao Yarã.`;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('yara_user');
+            window.location.reload();
+        }
+
+        checkUser();
+
+        const regionData = {
+            norte: {
+                title: "Norte / Litoral",
+                desc: "Região de manguezais e floresta tropical, onde a resistência se une à biodiversidade marinha.",
+                tribes: [
+                    { name: "Ka'apor", lang: "Ka'apor (Tupi)", link: "pages/etnias/kaapor.html" },
+                    { name: "Awá-Guajá", lang: "Guajá (Tupi-Guarani)", link: "pages/etnias/awa-guaja.html" }
+                ]
+            },
+            oeste: {
+                title: "Região Oeste",
+                desc: "A Pré-Amazônia maranhense, território de grandes florestas e guardiões ancestrais.",
+                tribes: [
+                    { name: "Guajajara", lang: "Tenetehara", link: "pages/etnias/guajajara.html" },
+                    { name: "Gavião Pukobyê", lang: "Timbira", link: "pages/etnias/gaviao.html" },
+                    { name: "Krikati", lang: "Timbira", link: "pages/etnias/krikati.html" }
+                ]
+            },
+            centro: {
+                title: "Região Central",
+                desc: "O coração do Maranhão, marcado pelos rituais Timbira e o cerrado preservado.",
+                tribes: [
+                    { name: "Canela Apanyekrá", lang: "Timbira", link: "pages/etnias/canela-apa.html" },
+                    { name: "Canela Ramkokamekrá", lang: "Timbira", link: "pages/etnias/canela-ram.html" },
+                    { name: "Timbira", lang: "Tronco Jê", link: "pages/etnias/timbira.html" }
+                ]
+            },
+            leste: {
+                title: "Região Leste",
+                desc: "Área de transição e campos, com forte presença da retomada cultural Gamela.",
+                tribes: [
+                    { name: "Gamela", lang: "Retomada", link: "pages/etnias/gamela.html" }
+                ]
+            },
+            sul: {
+                title: "Região Sul",
+                desc: "O alto sertão maranhense, onde o relevo e a cultura Timbira se encontram.",
+                tribes: [
+                    { name: "Krenyê", lang: "Língua Jê", link: "pages/etnias/krenye.html" },
+                    { name: "Kreye", lang: "Língua Jê", link: "pages/etnias/kreye.html" }
+                ]
+            }
+        };
+
+        document.querySelectorAll('.region-path').forEach(path => {
+            path.addEventListener('click', function() {
+                const region = this.getAttribute('data-region');
+                const data = regionData[region];
+                
+                document.querySelectorAll('.region-path').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.getElementById('defaultMsg').style.display = 'none';
+                document.getElementById('regionContent').style.display = 'block';
+                
+                document.getElementById('regionTitle').innerText = data.title;
+                document.getElementById('regionDesc').innerText = data.desc;
+                
+                const list = document.getElementById('tribeList');
+                list.innerHTML = '';
+                data.tribes.forEach(tribe => {
+                    const item = document.createElement('a');
+                    item.href = tribe.link;
+                    item.className = 'tribe-item';
+                    item.innerHTML = `
+                        <div>
+                            <strong style="display:block; font-size:1.1rem;">${tribe.name}</strong>
+                            <small style="color:var(--accent);">${tribe.lang}</small>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    `;
+                    list.appendChild(item);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

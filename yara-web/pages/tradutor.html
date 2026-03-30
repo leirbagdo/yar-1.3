@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradutor Yarã - Tecnologia e Ancestralidade</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .translator-page {
+            padding: 120px 5% 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .translator-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px;
+        }
+        .lang-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        select {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid var(--glass-border);
+            padding: 12px 20px;
+            border-radius: 50px;
+            outline: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        select:focus {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+        select option { background: #020617; }
+        
+        .io-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        .text-area-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .text-area-group label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding-left: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            resize: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            outline: none;
+        }
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.1);
+        }
+        .btn-translate-main {
+            margin-top: 30px;
+            width: 250px;
+            font-size: 1.1rem;
+        }
+        .user-greeting {
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 15px;
+        }
+        @media (max-width: 768px) {
+            .io-wrapper { grid-template-columns: 1fr; }
+            textarea { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-modern glass">
+        <div class="logo-area" onclick="window.location.href='../index.html'" style="cursor: pointer;">
+            <img src="../assets/img/yara94.png" alt="Logo Yarã">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#mapa">Mapa</a>
+            <a href="tradutor.html" class="active">Tradutor</a>
+            <a href="agente.html">Agente IA</a>
+        </div>
+        <div class="auth-btns" id="authContainer">
+            <a href="login.html" class="btn-modern btn-ghost">Entrar</a>
+        </div>
+    </nav>
+
+    <main class="translator-page">
+        <div class="translator-container glass">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="color: var(--accent); font-size: 2.5rem; margin-bottom: 10px;">Tradutor Digital</h1>
+                <p style="color: var(--text-muted);">Ponte entre o Português e as vozes ancestrais do Maranhão.</p>
+            </div>
+
+            <div class="lang-selector">
+                <select id="fromLang">
+                    <option value="pt">Português</option>
+                    <option value="guajajara">Guajajara (Tenetehara)</option>
+                </select>
+                <i class="fas fa-exchange-alt" style="color: var(--accent); font-size: 1.2rem;"></i>
+                <select id="toLang">
+                    <option value="guajajara">Guajajara (Tenetehara)</option>
+                    <option value="pt">Português</option>
+                </select>
+            </div>
+
+            <div class="io-wrapper">
+                <div class="text-area-group">
+                    <label>Entrada</label>
+                    <textarea id="inputText" placeholder="Digite ou cole seu texto aqui... (Ex: Bom dia, Terra, Água)"></textarea>
+                </div>
+                <div class="text-area-group">
+                    <label>Saída (Tradução)</label>
+                    <textarea id="outputText" placeholder="A tradução aparecerá aqui..." readonly></textarea>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn-modern btn-primary btn-translate-main" id="translateBtn">
+                    <i class="fas fa-language"></i> Traduzir Agora
+                </button>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+                <i class="fas fa-info-circle"></i> Tradutor conectado à API Yarã. Experimente termos como "Bom dia" ou "Terra".
+            </div>
+        </div>
+    </main>
+
+    <footer class="modern-footer">
+        <p>&copy; 2026 Projeto Yarã. Preservando o futuro através da linguagem.</p>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:8080';
+
+        // Lógica de Usuário Logado
+        function checkUser() {
+            const userJson = localStorage.getItem('yara_user');
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                const authContainer = document.getElementById('authContainer');
+                authContainer.innerHTML = `
+                    <span class="user-greeting">Olá, ${user.nome.split(' ')[0]}!</span>
+                    <button onclick="logout()" class="btn-modern btn-ghost" style="padding: 8px 15px;">Sair</button>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('yara_user');
+            window.location.reload();
+        }
+
+        checkUser();
+
+        document.getElementById('translateBtn').addEventListener('click', async function() {
+            const input = document.getElementById('inputText').value;
+            const from = document.getElementById('fromLang').value;
+            const to = document.getElementById('toLang').value;
+            const output = document.getElementById('outputText');
+            
+            if(!input) return;
+            
+            output.value = "Traduzindo...";
+            
+            try {
+                const response = await fetch(`${API_URL}/traduzir`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ texto: input, from, to })
+                });
+                const data = await response.json();
+                output.value = data.traduzido;
+            } catch (err) {
+                output.value = "Erro ao conectar com a API de tradução.";
+            }
+        });
+    </script>
+</body>
+</html>

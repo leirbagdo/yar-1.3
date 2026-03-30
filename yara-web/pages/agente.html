@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yarã Bot - Assistente Inteligente</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .agent-page {
+            padding: 120px 5% 60px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-card {
+            flex: 1;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .bot-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-dark);
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .chat-body {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .msg {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .msg-bot {
+            align-self: flex-start;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-bottom-left-radius: 5px;
+        }
+        .msg-user {
+            align-self: flex-end;
+            background: var(--accent);
+            color: var(--bg-dark);
+            font-weight: 600;
+            border-bottom-right-radius: 5px;
+        }
+        .chat-footer {
+            padding: 25px 30px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 15px;
+        }
+        .chat-input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 12px 25px;
+            color: white;
+            outline: none;
+            transition: var(--transition);
+        }
+        .chat-input:focus {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-modern glass">
+        <div class="logo-area">
+            <img src="../assets/img/yara94.png" alt="Logo Yarã">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../index.html#mapa">Mapa</a>
+            <a href="tradutor.html">Tradutor</a>
+            <a href="agente.html" class="active">Agente IA</a>
+        </div>
+        <div class="auth-btns">
+            <a href="login.html" class="btn-modern btn-ghost">Entrar</a>
+        </div>
+    </nav>
+
+    <main class="agent-page">
+        <div class="chat-card glass">
+            <div class="chat-header">
+                <div class="bot-avatar"><i class="fas fa-robot"></i></div>
+                <div>
+                    <h3 style="color: var(--accent);">Yarã Bot</h3>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Assistente Especializado</p>
+                </div>
+            </div>
+
+            <div class="chat-body" id="chatContainer">
+                <div class="msg msg-bot">
+                    Olá! Sou o Yarã Bot. Estou aqui para ajudar você a explorar as línguas e culturas dos povos originários do Maranhão. O que você gostaria de saber hoje?
+                </div>
+            </div>
+
+            <div class="chat-footer">
+                <input type="text" class="chat-input" id="userInput" placeholder="Digite sua pergunta aqui...">
+                <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function addMessage(text, type) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg msg-${type}`;
+            msgDiv.innerText = text;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function handleSend() {
+            const text = userInput.value.trim();
+            if(!text) return;
+
+            addMessage(text, 'user');
+            userInput.value = '';
+
+            // Simulação de resposta
+            setTimeout(() => {
+                addMessage("Essa é uma pergunta excelente! No Maranhão, temos uma diversidade linguística incrível. Você sabia que o povo Guajajara fala a língua Tenetehara?", 'bot');
+            }, 1000);
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') handleSend();
+        });
+    </script>
+</body>
+</html>

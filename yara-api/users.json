@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "nome": "Admin",
+    "email": "admin@yara.im",
+    "senha": "admin",
+    "role": "admin"
+  },
+  {
+    "id": 1770637820634,
+    "nome": "gabriel",
+    "email": "gabrielmartins@acad.ifma.edu.br",
+    "senha": "rfrevrve",
+    "role": "user"
+  },
+  {
+    "id": 1770638748218,
+    "nome": "coco",
+    "email": "gabrielmartins@acad.if",
+    "senha": "rfrevrve",
+    "role": "user"
+  },
+  {
+    "id": 1770638780602,
+    "nome": "oi",
+    "email": "itapin@123",
+    "senha": "123",
+    "role": "user"
+  },
+  {
+    "id": 1770839939109,
+    "nome": "gabriel",
+    "email": "gabrielmartins@acaaidfniorn",
+    "senha": "123321",
+    "role": "user"
+  },
+  {
+    "id": 1770840192992,
+    "nome": "coco",
+    "email": "rjvnjwovnorwvn@hcbhjivbrj",
+    "senha": "rfrevrve",
+    "role": "user"
+  }
+]
