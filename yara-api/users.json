@@ -47,5 +47,12 @@
     "email": "123@igji",
     "senha": "12344321",
     "role": "user"
+  },
+  {
+    "id": 1775246752530,
+    "nome": "efwegwrg",
+    "email": "rgwgwve@aefea",
+    "senha": "$2b$10$Yuy7Td6v3Z4EKKFuTt87pORURn04KBJBk/rn8SHkrVymvIVNswM6y",
+    "role": "user"
   }
 ]

@@ -3,7 +3,8 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { connectDB } = require('./database');
-
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -30,6 +31,10 @@ const saveUsersJSON = (users) => {
 // Rota de Cadastro
 app.post('/signup', async (req, res) => {
     const { nome, email, senha } = req.body;
+
+
+    const senhaHash = await bcrypt.hash(senha, SALT_ROUNDS);
+
     
     try {
         const db = await connectDB();
@@ -39,7 +44,7 @@ app.post('/signup', async (req, res) => {
             if (rows.length > 0) {
                 return res.status(400).json({ success: false, message: "E-mail já cadastrado no MySQL" });
             }
-            await db.execute('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)', [nome, email, senha]);
+            await db.execute('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)', [nome, email, senhaHash]);
             return res.status(201).json({ success: true, message: "Usuário cadastrado no MySQL" });
         }
     } catch (err) {
@@ -47,14 +52,21 @@ app.post('/signup', async (req, res) => {
     }
 
     // Lógica JSON (Fallback)
+    
     const usuarios = readUsersJSON();
     if (usuarios.find(u => u.email === email)) {
         return res.status(400).json({ success: false, message: "E-mail já cadastrado (JSON)" });
     }
-    const novoUsuario = { id: Date.now(), nome, email, senha, role: "user" };
+    // ✅ Salva senhaHash no JSON também
+    const novoUsuario = { id: Date.now(), nome, email, senha: senhaHash, role: "user" };
     usuarios.push(novoUsuario);
     saveUsersJSON(usuarios);
     res.status(201).json({ success: true, user: { nome: novoUsuario.nome, email: novoUsuario.email }, source: 'json' });
+     // ✅ Mostra o resultado no terminal
+    console.log("=== LOGIN ===");
+    console.log("Senha digitada:", senha);
+    console.log("Hash no banco:", usuario.senha);
+    console.log("Senha correta?", senhaCorreta); // true ou false
 });
 
 // Rota de Login
@@ -64,26 +76,41 @@ app.post('/login', async (req, res) => {
     try {
         const db = await connectDB();
         if (db) {
-            // Lógica MySQL
-            const [rows] = await db.execute('SELECT * FROM usuarios WHERE email = ? AND senha = ?', [email, senha]);
+            // ✅ Busca só pelo email (não pela senha)
+            const [rows] = await db.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
             if (rows.length > 0) {
                 const usuario = rows[0];
-                return res.status(200).json({ success: true, user: { nome: usuario.nome, email: usuario.email, role: usuario.role }, source: 'mysql' });
+                // ✅ Compara a senha digitada com o hash salvo
+                const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+                if (senhaCorreta) {
+                    return res.status(200).json({ success: true, user: { nome: usuario.nome, email: usuario.email, role: usuario.role }, source: 'mysql' });
+                } else {
+                    return res.status(401).json({ success: false, message: "Credenciais inválidas" });
+                }
             }
         }
     } catch (err) {
         console.log("MySQL não disponível para login, tentando JSON...");
     }
 
-    // Lógica JSON (Fallback)
+    // Fallback JSON
     const usuarios = readUsersJSON();
-    const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+    // ✅ Busca só pelo email
+    const usuario = usuarios.find(u => u.email === email);
     if (usuario) {
-        res.status(200).json({ success: true, user: { nome: usuario.nome, email: usuario.email, role: usuario.role }, source: 'json' });
-    } else {
-        res.status(401).json({ success: false, message: "Credenciais inválidas" });
+        // ✅ Compara a senha com o hash
+        const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+        if (senhaCorreta) {
+            return res.status(200).json({ success: true, user: { nome: usuario.nome, email: usuario.email, role: usuario.role }, source: 'json' });
+        }
     }
+    res.status(401).json({ success: false, message: "Credenciais inválidas" });
+     console.log("Os dois são iguais?", senha === senhaHash);
+   
 });
+
+
+
 
 // Traduzir
 app.post('/traduzir', (req, res) => {
