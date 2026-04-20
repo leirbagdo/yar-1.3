@@ -1,49 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Real do Maranhão - Yarã</title>
-    <link rel="stylesheet" href="../assets/css/modern.css">
-    <style>
-        .map-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 100px auto;
-            padding: 40px;
-        }
-        .ma-svg {
-            width: 100%;
-            height: auto;
-            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
-        }
-        .ma-path {
-            fill: rgba(15, 118, 110, 0.4);
-            stroke: var(--accent);
-            stroke-width: 500; /* Ajustado para o viewBox grande */
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .ma-path:hover {
-            fill: var(--accent);
-            fill-opacity: 0.6;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa do Maranhão - Yarã</title>
+  <link rel="stylesheet" href="/yara-web/assets/css/modern.css">
+  <style>
+    .map-wrapper {
+      width: 100%;
+      max-width: 720px;
+      margin: 80px auto;
+      padding: 32px;
+    }
+
+    .map-title {
+      text-align: center;
+      color: var(--accent);
+      margin: 0 0 24px;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    #ma-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #ma-shape {
+      fill: rgba(15, 118, 110, 0.35);
+      stroke: var(--accent);
+      stroke-width: 500;
+      stroke-linejoin: round;
+      cursor: pointer;
+      transition: fill 0.2s ease;
+    }
+
+    #ma-shape:hover {
+      fill: rgba(15, 118, 110, 0.6);
+    }
+
+    .map-status {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-top: 12px;
+      min-height: 1.2em;
+    }
+  </style>
 </head>
 <body>
-    <div class="map-container glass">
-        <h2 style="text-align: center; color: var(--accent); margin-bottom: 30px;">Geografia Real do Maranhão</h2>
-        <svg viewBox="0 0 198000 194010" class="ma-svg">
-            <!-- O path será inserido aqui via script para evitar problemas de tamanho no write -->
-            <path id="maPathReal" class="ma-path" d=""></path>
-        </svg>
-    </div>
-    <script>
-        // Carregar o path do arquivo (simulado para este exemplo)
-        fetch('../../ma_path.txt').then(r => r.text()).then(t => {
-            const d = t.replace('d="', '').replace('"', '');
-            document.getElementById('maPathReal').setAttribute('d', d);
-        });
-    </script>
+
+  <div class="map-wrapper glass">
+    <h2 class="map-title">Geografia do Maranhão</h2>
+
+    <svg id="ma-svg" viewBox="0 0 198000 194010"
+         xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-label="Mapa do estado do Maranhão">
+      <path id="ma-shape" d=""></path>
+    </svg>
+
+    <p class="map-status" id="map-status">Carregando...</p>
+  </div>
+
+  <script>
+    const shape = document.getElementById('ma-shape');
+    const status = document.getElementById('map-status');
+
+    fetch('../../ma_path.txt')
+      .then(r => {
+        if (!r.ok) throw new Error('Arquivo não encontrado');
+        return r.text();
+      })
+      .then(text => {
+        const d = text.trim().replace(/^d="/, '').replace(/"$/, '');
+        shape.setAttribute('d', d);
+        status.textContent = '';
+      })
+      .catch(err => {
+        status.textContent = 'Erro ao carregar mapa.';
+        console.error('Mapa:', err);
+      });
+
+    shape.addEventListener('click', () => {
+      shape.style.fill = 'rgba(15, 118, 110, 0.8)';
+      setTimeout(() => shape.style.fill = '', 600);
+    });
+  </script>
+
 </body>
 </html>
