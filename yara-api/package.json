@@ -1,16 +1,25 @@
 {
   "name": "yara-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "Portal Indígena do Maranhão — Back-end API",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "test": "jest --runInBand --forceExit"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
     "express": "^4.22.1",
+    "express-rate-limit": "^7.3.1",
     "jsonwebtoken": "^9.0.3",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.16.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }
