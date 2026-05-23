@@ -62,11 +62,7 @@ app.post('/signup', async (req, res) => {
     usuarios.push(novoUsuario);
     saveUsersJSON(usuarios);
     res.status(201).json({ success: true, user: { nome: novoUsuario.nome, email: novoUsuario.email }, source: 'json' });
-     // ✅ Mostra o resultado no terminal
-    console.log("=== LOGIN ===");
-    console.log("Senha digitada:", senha);
-    console.log("Hash no banco:", usuario.senha);
-    console.log("Senha correta?", senhaCorreta); // true ou false
+  
 });
 
 // Rota de Login
