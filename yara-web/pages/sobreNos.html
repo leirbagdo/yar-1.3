@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós</title>
+    <link rel="stylesheet" href="../assets/css/modern.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        header h1 {
+            color: white;
+            text-align: center;
+            padding: 30px 30px;
+        }
+
+        header {
+            color: #f4f6f9;
+            text-align: center;
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            color: #f4f6f9;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .about-text {
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .member {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .member h3 {
+            margin: 10px 0 5px;
+        }
+
+        .member p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav class="nav-modern glass">
+        <div class="logo-area">
+            <img src="../img/yara94.png" alt="Logo Yarã">
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+        </div>
+        <div class="nav-links">
+            <a href="/yara-web/index.html">Home</a>
+            <a href="nossa-voz.html">Nossa Voz</a>
+            <a href="biblioteca.html">Biblioteca</a>
+            <a href="timeline.html">História</a>
+            <a href="contribuir.html">Dados</a>
+            <a href="tradutor.html"> Tradutor</a>
+            <a href="agente.html">Agente IA</a>
+            <a href="sobreNos.html" class="active">Sobre Nós</a>
+        </div>
+    </nav>
+
+
+    <header>
+        <h1>Sobre Nós</h1>
+        <p>Conheça nosso grupo de estudantes</p>
+    </header>
+
+    <div class="container">
+        <div class="about-text">
+            <p>
+                Somos um grupo de cinco estudantes apaixonados por aprender e criar.
+                Desenvolvemos este site como parte da nossa jornada acadêmica,
+                buscando compartilhar conhecimentos, ideias e projetos.
+            </p>
+            <p>
+                Cada integrante contribui com suas habilidades únicas, tornando nosso
+                trabalho colaborativo mais forte e criativo. Juntos, enfrentamos desafios
+                e buscamos evoluir constantemente.
+            </p>
+        </div>
+
+        <div class="team">
+            <div class="member">
+                <img src="https://via.placeholder.com/100" alt="Membro 1">
+                <h3>Aluno 1</h3>
+                <p>Breno<br>
+                Desenvolvedor front-end, responsável pelo design e interface.</p>
+            </div>
+
+            <div class="member">
+                <img src="https://via.placeholder.com/100" alt="Membro 2">
+                <h3>Aluno 2</h3>
+                <p>Luis Guilherme<br>
+                Desenvolvimento front-end.</p>
+            </div>
+
+            <div class="member">
+                <img src="https://via.placeholder.com/100" alt="Membro 3">
+                <h3>Aluno 3</h3>
+                <p>Gabriel<br>
+                Back-end e lógica do sistema.</p>
+            </div>
+
+            <div class="member">
+                <img src="https://via.placeholder.com/100" alt="Membro 4">
+                <h3>Aluno 4</h3>
+                <p>Joseph<br>
+                Banco de dados e estrutura.</p>
+            </div>
+
+            <div class="member">
+                <img src="https://via.placeholder.com/100" alt="Membro 5">
+                <h3>Aluno 5</h3>
+                <p>Antônio<br>
+                Documentação e testes.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="modern-footer">
+        <p>&copy; 2026 Projeto Yarã. Honrando o passado para construir o futuro.</p>
+    </footer>
+    
+</body>
+</html>
