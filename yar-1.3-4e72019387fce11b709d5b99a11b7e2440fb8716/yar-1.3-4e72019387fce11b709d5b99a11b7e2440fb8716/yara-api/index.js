@@ -133,49 +133,7 @@ app.post('/signup', authLimiter, async (req, res, next) => {
         return res.status(201).json({ success: true, message: 'Usuário cadastrado com sucesso!' });
 
     } catch (err) {
-<<<<<<< HEAD
-        console.log("MySQL não disponível, usando JSON como fallback...");
-    }
-
-    // Lógica JSON (Fallback)
-    
-    const usuarios = readUsersJSON();
-    if (usuarios.find(u => u.email === email)) {
-        return res.status(400).json({ success: false, message: "E-mail já cadastrado (JSON)" });
-    }
-    // ✅ Salva senhaHash no JSON também
-    const novoUsuario = { id: Date.now(), nome, email, senha: senhaHash, role: "user" };
-    usuarios.push(novoUsuario);
-    saveUsersJSON(usuarios);
-    res.status(201).json({ success: true, user: { nome: novoUsuario.nome, email: novoUsuario.email }, source: 'json' });
-  
-});
-
-// Rota de Login
-app.post('/login', async (req, res) => {
-    const { email, senha } = req.body;
-
-    try {
-        const db = await connectDB();
-        if (db) {
-            // ✅ Busca só pelo email (não pela senha)
-            const [rows] = await db.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
-            if (rows.length > 0) {
-                const usuario = rows[0];
-                // ✅ Compara a senha digitada com o hash salvo
-                const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
-                if (senhaCorreta) {
-                    return res.status(200).json({ success: true, user: { nome: usuario.nome, email: usuario.email, role: usuario.role }, source: 'mysql' });
-                } else {
-                    return res.status(401).json({ success: false, message: "Credenciais inválidas" });
-                }
-            }
-        }
-    } catch (err) {
-        console.log("MySQL não disponível para login, tentando JSON...");
-=======
         console.error('MySQL /signup:', err.message, '— usando fallback JSON');
->>>>>>> 4e72019387fce11b709d5b99a11b7e2440fb8716
     }
 
     // Fallback JSON
