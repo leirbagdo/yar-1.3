@@ -1,0 +1,36 @@
+{
+    "pt-guajajara": {
+        "bom dia": "Kwez katu",
+        "boa tarde": "Kwez katu hé",
+        "boa noite": "Pyhun katu",
+        "terra": "Ywy",
+        "água": "Y",
+        "fogo": "Tatá",
+        "sol": "Kuarahy",
+        "lua": "Jasy",
+        "floresta": "Ka'a",
+        "aldeia": "Taba",
+        "criança": "Mitã",
+        "pai": "Xypy",
+        "mãe": "Sy",
+        "obrigado": "Ikatú",
+        "sim": "Eé",
+        "não": "Nahániri"
+    },
+    "guajajara-pt": {
+        "kwez katu": "Bom dia",
+        "ywy": "Terra",
+        "y": "Água",
+        "tatá": "Fogo",
+        "kuarahy": "Sol",
+        "jasy": "Lua",
+        "ka'a": "Floresta",
+        "taba": "Aldeia",
+        "mitã": "Criança",
+        "xypy": "Pai",
+        "sy": "Mãe",
+        "ikatú": "Obrigado",
+        "eé": "Sim",
+        "nahániri": "Não"
+    }
+}

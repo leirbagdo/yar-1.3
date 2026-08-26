@@ -4,7 +4,7 @@
     "nome": "gabriel martins ",
     "email": "gabirelmartins@acad.ifma.edu.br",
     "senha": "$2b$10$GkOgbOjT70y2ZiVxDtoAD.YMz1lhZR0XIW17zAmfJSYukxHB./Zoq",
-    "role": "user"
+    "role": "admin"
   },
   {
     "id": 1775507327552,
@@ -67,6 +67,20 @@
     "nome": "joap",
     "email": "joelinton@gmail.com",
     "senha": "$2b$10$fM4Ra2X2YZPtDavedK03AeyHplslnerCu7SZ3CRmr67cgEnHmbOS6",
+    "role": "user"
+  },
+  {
+    "id": 1785816891705,
+    "nome": "qh",
+    "email": "rgreonvoen@gmail.com",
+    "senha": "$2b$10$CotN.dmTUgpQ5uxnBf9v9eCDk0GbmyG9oM/vNbxNJTyGk/j0dlKQO",
+    "role": "admin"
+  },
+  {
+    "id": 1785820570923,
+    "nome": "gggggg",
+    "email": "rnrnwrgpwgpngknkp@gmal.com",
+    "senha": "$2b$10$NufK.0FUl2jb9PE7pQPQueTLVyPzsCWl09EKMGR4FFufmgVXPxbdi",
     "role": "user"
   }
 ]

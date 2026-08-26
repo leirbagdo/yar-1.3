@@ -80,25 +80,39 @@ CREATE TABLE aldeias (
 );
 
 -- ============================================================
--- TABELA 4: acervo (NOVO — Sprint 01/03)
+-- TABELA 4: acervo (REFATORADA — Biblioteca Digital, Parte 2)
 -- ERRO ORIGINAL: tabela não existia — biblioteca.html era estática.
+--
+-- DECISÃO DE ARQUITETURA: o desenho anterior amarrava cada item a uma
+-- única etnia via FK (`etnia_id`) e guardava um link externo (`url`).
+-- O novo requisito pede campos de texto livre (`idioma`, `povo`,
+-- `categoria`, `autor`) e upload real de arquivo (`arquivo`, `tipo`,
+-- `tamanho`), além de rastrear quem fez o upload (`usuario_id`).
+-- A FK para `etnias` foi substituída por um FK para `usuarios`
+-- (autor do upload), mantendo a integridade referencial onde ela
+-- faz sentido no novo modelo.
 -- ============================================================
 CREATE TABLE acervo (
   id          INT           NOT NULL AUTO_INCREMENT,
   titulo      VARCHAR(200)  NOT NULL,
-  tipo        ENUM('documento','audio','video','imagem','outro') NOT NULL DEFAULT 'documento',
   descricao   TEXT          DEFAULT NULL,
-  url         VARCHAR(500)  DEFAULT NULL,
-  etnia_id    INT           DEFAULT NULL,
-  created_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  idioma      VARCHAR(100)  DEFAULT NULL,
+  povo        VARCHAR(100)  DEFAULT NULL,
+  categoria   VARCHAR(100)  DEFAULT NULL,
+  autor       VARCHAR(150)  DEFAULT NULL,
+  arquivo     VARCHAR(500)  DEFAULT NULL,
+  tipo        ENUM('documento','audio','video','imagem','outro') NOT NULL DEFAULT 'outro',
+  tamanho     INT           DEFAULT NULL COMMENT 'Tamanho do arquivo em bytes',
+  data_upload TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  usuario_id  INT           DEFAULT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (etnia_id) REFERENCES etnias(id) ON DELETE SET NULL
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 
-INSERT INTO acervo (titulo, tipo, descricao, etnia_id) VALUES
-  ('Gramática da Língua Tenetehara', 'documento', 'Estudo linguístico da língua Guajajara publicado pela FUNAI.', 1),
-  ('Cânticos Rituais Canela',        'audio',     'Gravação de cânticos do Ritual da Corrida de Tora (Canela Apãniekrã).', 4),
-  ('Mapa das Terras Indígenas do Maranhão', 'documento', 'Documento oficial FUNAI com delimitações de TIs no estado.', NULL);
+INSERT INTO acervo (titulo, descricao, idioma, povo, categoria, autor, tipo) VALUES
+  ('Gramática da Língua Tenetehara', 'Estudo linguístico da língua Guajajara publicado pela FUNAI.', 'Tenetehara', 'Guajajara', 'Linguística', 'FUNAI', 'documento'),
+  ('Cânticos Rituais Canela', 'Gravação de cânticos do Ritual da Corrida de Tora (Canela Apãniekrã).', 'Canela', 'Canela Apãniekrã', 'Ritual', 'Aldeia Escalvado', 'audio'),
+  ('Mapa das Terras Indígenas do Maranhão', 'Documento oficial FUNAI com delimitações de TIs no estado.', 'Português', NULL, 'Documento oficial', 'FUNAI', 'documento');
 
 -- ============================================================
 -- TABELA 5: depoimentos (NOVO — Sprint 01/03)

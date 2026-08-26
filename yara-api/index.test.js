@@ -138,18 +138,20 @@ describe('POST /traduzir', () => {
     });
 });
 
-// ─── /acervo ────────────────────────────────────────────────
-describe('GET /acervo', () => {
+// ─── /api/acervo ────────────────────────────────────────────
+// NOTA: a partir da refatoração estrutural (Parte 2), o CRUD do
+// acervo passou a viver em /api/acervo (antes era /acervo).
+describe('GET /api/acervo', () => {
     test('retorna lista pública do acervo', async () => {
-        const res = await request(app).get('/acervo');
+        const res = await request(app).get('/api/acervo');
         expect(res.status).toBe(200);
         expect(res.body).toHaveProperty('success');
     });
 });
 
-describe('POST /acervo (protegido)', () => {
+describe('POST /api/acervo (protegido)', () => {
     test('recusa sem token', async () => {
-        const res = await request(app).post('/acervo').send({ titulo: 'Teste', tipo: 'documento' });
+        const res = await request(app).post('/api/acervo').send({ titulo: 'Teste', tipo: 'documento' });
         expect(res.status).toBe(401);
     });
 });
