@@ -6,75 +6,12 @@
     <title>Biblioteca Digital - Yarã</title>
     <link rel="stylesheet" href="../assets/css/modern.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .library-page { padding: 120px 5% 60px; }
-        .filter-bar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .filter-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-            border-color: var(--accent);
-        }
-        .asset-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .asset-card {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .asset-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        .asset-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--glass-border);
-            padding-top: 15px;
-            margin-top: auto;
-        }
-        .download-btn {
-            background: rgba(250, 204, 21, 0.1);
-            color: var(--accent);
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-        .download-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-        }
-    </style>
 </head>
 <body>
     <nav class="nav-modern glass">
         <div class="logo-area">
             <img src="../img/yara94.png" alt="Logo Yarã">
-            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+            <span class="brand-text">YARÃ</span>
         </div>
         <div class="nav-links">
             <a href="/yara-web/index.html">Home</a>
@@ -82,58 +19,72 @@
             <a href="biblioteca.html" class="active">Biblioteca</a>
             <a href="timeline.html">História</a>
             <a href="contribuir.html">Dados</a>
-            <a href="tradutor.html"> Tradutor</a>
+            <a href="tradutor.html">Tradutor</a>
             <a href="agente.html">Agente IA</a>
             <a href="sobreNos.html">Sobre Nós</a>
+        </div>
+        <div class="auth-btns" id="authContainer">
+            <a href="login.html" class="btn-modern btn-ghost">Entrar</a>
         </div>
     </nav>
 
     <main class="library-page">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <h1 style="font-size: 3rem; color: var(--accent);">Acervo Digital</h1>
-            <p style="color: var(--text-muted);">Documentos, áudios e registros históricos das línguas do Maranhão.</p>
+        <div class="u-text-center u-mb-50">
+            <h1 class="page-title-lg">Acervo Digital</h1>
+            <p class="u-text-muted">Documentos, áudios e registros históricos das línguas do Maranhão.</p>
         </div>
 
-        <div class="filter-bar">
-            <button class="filter-btn active">Todos</button>
-            <button class="filter-btn">Documentos</button>
-            <button class="filter-btn">Áudios</button>
-            <button class="filter-btn">Vídeos</button>
-            <button class="filter-btn">Gramáticas</button>
+        <!-- Barra de busca -->
+        <div class="search-bar">
+            <input
+                type="search"
+                id="busca"
+                class="search-input"
+                placeholder="🔍 Buscar no acervo..."
+                aria-label="Buscar itens no acervo"
+            >
         </div>
 
-        <div class="asset-grid">
-            <!-- Card 1 -->
-            <div class="asset-card glass card-hover-effect">
-                <div class="asset-icon"><i class="fas fa-file-pdf"></i></div>
-                <h3 style="color: var(--accent);">Gramática Tenetehara</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Estudo completo sobre a estrutura da língua falada pelos Guajajara.</p>
-                <div class="asset-meta">
-                    <span>PDF • 4.2 MB</span>
-                    <a href="#" class="download-btn">Baixar</a>
-                </div>
-            </div>
+        <!-- Filtros por tipo -->
+        <div class="filter-bar" id="filtros" role="group" aria-label="Filtrar por tipo">
+            <button class="filter-btn active" data-tipo="todos">Todos</button>
+            <button class="filter-btn" data-tipo="documento">Documentos</button>
+            <button class="filter-btn" data-tipo="audio">Áudios</button>
+            <button class="filter-btn" data-tipo="video">Vídeos</button>
+            <button class="filter-btn" data-tipo="imagem">Imagens</button>
+            <button class="filter-btn" data-tipo="outro">Outros</button>
+        </div>
 
-            <!-- Card 2 -->
-            <div class="asset-card glass card-hover-effect">
-                <div class="asset-icon"><i class="fas fa-volume-up"></i></div>
-                <h3 style="color: var(--accent);">Cantos Ka'apor</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Registro em áudio de cantos tradicionais de celebração da etnia Ka'apor.</p>
-                <div class="asset-meta">
-                    <span>MP3 • 12.5 MB</span>
-                    <a href="#" class="download-btn">Ouvir</a>
-                </div>
-            </div>
+        <!-- Ação de administração (Parte 3) -->
+        <div class="library-toolbar">
+            <button class="btn-modern btn-primary btn-add-asset" id="btnAdicionarArquivo">
+                <i class="fas fa-plus"></i> Adicionar Arquivo
+            </button>
+        </div>
 
-            <!-- Card 3 -->
-            <div class="asset-card glass card-hover-effect">
-                <div class="asset-icon"><i class="fas fa-video"></i></div>
-                <h3 style="color: var(--accent);">Ritual Timbira</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Documentário curta-metragem sobre a festa do Moqueado.</p>
-                <div class="asset-meta">
-                    <span>MP4 • 850 MB</span>
-                    <a href="#" class="download-btn">Assistir</a>
-                </div>
+        <p class="contador-resultados" id="contador" aria-live="polite"></p>
+
+        <div class="asset-grid" id="grid-acervo" aria-live="polite" aria-label="Itens do acervo">
+            <div class="skeleton-card glass">
+                <div class="skeleton-line sm"></div>
+                <div class="skeleton-line lg"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line sm"></div>
+            </div>
+            <div class="skeleton-card glass">
+                <div class="skeleton-line sm"></div>
+                <div class="skeleton-line lg"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line sm"></div>
+            </div>
+            <div class="skeleton-card glass">
+                <div class="skeleton-line sm"></div>
+                <div class="skeleton-line lg"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line sm"></div>
             </div>
         </div>
     </main>
@@ -141,5 +92,68 @@
     <footer class="modern-footer">
         <p>&copy; 2026 Projeto Yarã. Conhecimento que atravessa gerações.</p>
     </footer>
+
+    <!-- Modal "Adicionar/Editar Arquivo" (Parte 3) -->
+    <div class="modal-overlay u-hidden" id="modalOverlay">
+        <div class="modal-card glass">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Adicionar Arquivo</h2>
+                <button class="modal-close-btn" id="modalCloseBtn" aria-label="Fechar"><i class="fas fa-times"></i></button>
+            </div>
+
+            <p class="modal-error u-hidden" id="modalErro"></p>
+
+            <form id="formAcervo" class="modal-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="campoTitulo">Título</label>
+                    <input type="text" id="campoTitulo" name="titulo" required>
+                </div>
+                <div class="form-group">
+                    <label for="campoDescricao">Descrição</label>
+                    <textarea id="campoDescricao" name="descricao"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="campoIdioma">Idioma</label>
+                    <input type="text" id="campoIdioma" name="idioma" placeholder="Ex: Tenetehara">
+                </div>
+                <div class="form-group">
+                    <label for="campoPovo">Povo indígena</label>
+                    <input type="text" id="campoPovo" name="povo" placeholder="Ex: Guajajara">
+                </div>
+                <div class="form-group">
+                    <label for="campoCategoria">Categoria</label>
+                    <input type="text" id="campoCategoria" name="categoria" placeholder="Ex: Linguística, Ritual...">
+                </div>
+                <div class="form-group">
+                    <label for="campoAutor">Autor</label>
+                    <input type="text" id="campoAutor" name="autor">
+                </div>
+                <div class="form-group">
+                    <label for="campoTipo">Tipo de arquivo</label>
+                    <select id="campoTipo" name="tipo">
+                        <option value="documento">Documento (PDF/DOCX)</option>
+                        <option value="imagem">Imagem</option>
+                        <option value="audio">Áudio</option>
+                        <option value="video">Vídeo</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="campoArquivo">Selecionar Arquivo</label>
+                    <input type="file" id="campoArquivo" name="arquivo">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-modern btn-ghost" id="btnCancelarAcervo">Cancelar</button>
+                    <button type="submit" class="btn-modern btn-primary" id="btnSalvarAcervo">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/biblioteca.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>
