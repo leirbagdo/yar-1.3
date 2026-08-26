@@ -4,19 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yarã - Mapa Interativo</title>
-  <!-- NOTA: esta página é um protótipo antigo, não está linkada em
-       nenhum menu do site (substituída pelo mapa interativo em
-       index.html#mapa). Os dois arquivos abaixo nunca existiram no
-       projeto — mantidos como estavam para não alterar nada além do
-       CSS interno pedido na refatoração. modern.css foi adicionado
-       para hospedar as classes extraídas do style="" original (ver
-       relatório de entrega, decisão de arquitetura). -->
   <link rel="stylesheet" href="../assets/css/globalyara.css">
-  <link rel="stylesheet" href="../assets/css/mapa.css">
   <link rel="stylesheet" href="../assets/css/modern.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="legacy-mapa-page">
+<body>
   <header class="navbar glass">
     <div class="brand">
       <img src="../img/yara94.png" alt="Logo Yarã" class="logo">
@@ -33,19 +25,21 @@
             <a href="agente.html">Agente IA</a>
             <a href="sobreNos.html">Sobre Nós</a>
     </nav>
+
+
   </header>
 
-  <main class="container-ma">
+  <main class="container-ma" style="margin-top: 20px;">
     <section class="map-section">
       <div class="map-info-bar">
         <div class="info-item"><i class="fas fa-map-marker-alt"></i> Clique em uma região do Maranhão</div>
       </div>
-      <div class="map-container-ma glass">
-        <h2>[Mapa do Maranhão Interativo]</h2>
+      <div class="map-container-ma glass" style="min-height: 500px; display: flex; align-items: center; justify-content: center;">
+        <h2 style="color: var(--accent);">[Mapa do Maranhão Interativo]</h2>
       </div>
     </section>
-
-    <aside class="panel-section glass">
+    
+    <aside class="panel-section glass" style="padding: 20px;">
       <h3>Estatísticas MA</h3>
       <div class="quick-facts">
         <ul>

@@ -6,53 +6,123 @@
     <title>Timbira - Projeto Yarã</title>
     <link rel="stylesheet" href="../../assets/css/modern.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .etnia-page { padding: 120px 5% 60px; }
+        .etnia-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        .etnia-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .info-item {
+            padding: 20px;
+            text-align: center;
+        }
+        .info-item i { color: var(--accent); font-size: 1.5rem; margin-bottom: 10px; }
+        .section-title {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .content-block { margin-bottom: 40px; line-height: 1.8; color: var(--text-muted); }
+        
+        /* Estilos do Mini Mapa */
+        .mini-map-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .map-ma-svg { width: 100%; height: auto; }
+        .region-path {
+            fill: rgba(255, 255, 255, 0.05);
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 2;
+        }
+        .region-path.active {
+            fill: var(--accent);
+            fill-opacity: 0.6;
+            stroke: var(--accent);
+        }
+        .region-label { display: none; }
+
+        @media (max-width: 768px) {
+            .etnia-header { grid-template-columns: 1fr; }
+            .etnia-img { height: 250px; }
+        }
+    </style>
 </head>
 <body>
     <div class="pattern-bg"></div>
     <nav class="nav-modern glass">
         <div class="logo-area">
             <img src="../../img/yara94.png" alt="Logo Yarã">
-            <span class="brand-text">YARÃ</span>
+            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
         </div>
         <div class="nav-links">
-            <a href="../../index.html">Home</a>
-            <a href="../../index.html#mapa">Mapa</a>
-            <a href="../tradutor.html">Tradutor</a>
-            <a href="../agente.html">Agente IA</a>
+            <a href="/yara-web/index.html">Home</a>
+            <a href="/yara-web/pages/nossa-voz.html">Nossa Voz</a>
+            <a href="/yara-web/pages/biblioteca.html">Biblioteca</a>
+            <a href="/yara-web/pages/timeline.html" class="active">História</a>
+            <a href="/yara-web/pages/contribuir.html">Dados</a>
+            <a href="/yara-web/pages/tradutor.html"> Tradutor</a>
+            <a href="/yara-web/pages/agente.html">Agente IA</a>
+            <a href="/yara-web/pages/sobreNos.html">Sobre Nós</a>
         </div>
+
+        <a href="/yara-web/index.html#mapa" class="btn-modern btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">Explorar Mais Territórios</a>
+
     </nav>
 
     <main class="etnia-page fade-in">
         <div class="etnia-header">
             <div>
-                <span class="region-eyebrow">Região centro</span>
-                <h1 class="etnia-title">Timbira</h1>
-                <p class="etnia-lead">Um tronco linguístico e cultural que engloba diversos grupos no centro-sul do estado, unidos por tradições similares.</p>
+                <span style="color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Região centro</span>
+                <h1 style="font-size: 3.5rem; margin: 10px 0;">Timbira</h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted);">Um tronco linguístico e cultural que engloba diversos grupos no centro-sul do estado, unidos por tradições similares.</p>
                 
                 <div class="info-grid">
                     <div class="info-item glass">
                         <i class="fas fa-language"></i>
-                        <span class="info-label">Língua</span>
+                        <span style="display:block; font-size: 0.8rem; color: var(--text-muted);">Língua</span>
                         <strong>Tronco Jê</strong>
                     </div>
                     <div class="info-item glass">
                         <i class="fas fa-users"></i>
-                        <span class="info-label">População</span>
+                        <span style="display:block; font-size: 0.8rem; color: var(--text-muted);">População</span>
                         <strong>Diversa</strong>
                     </div>
                 </div>
             </div>
             
-            <div class="u-text-center">
+            <div style="text-align: center;">
                 <img src="../../img/tribo-yanomami.jpg" alt="Timbira" class="etnia-img">
                 <div class="mini-map-container glass">
-                    <p class="mini-map-label">Localização no Maranhão</p>
-                    <div id="miniMap" data-region="centro"></div>
+                    <p style="font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; color: var(--accent);">Localização no Maranhão</p>
+                    <div id="miniMap"></div>
                 </div>
             </div>
         </div>
 
-        <div class="glass content-card-lg">
+        <div class="glass" style="padding: 40px; border-radius: 30px;">
             <h2 class="section-title"><i class="fas fa-book-open"></i> Cultura e Tradição</h2>
             <div class="content-block">
                 <p>O povo Timbira possui uma cosmovisão única, profundamente ligada aos ciclos da natureza e à preservação de suas terras ancestrais no Maranhão. Suas tradições orais são o pilar de sua resistência, transmitindo conhecimentos sobre medicina tradicional, rituais sagrados e a história de seus antepassados.</p>
@@ -63,7 +133,7 @@
                 <p>Localizados na região centro do estado, os Timbira enfrentam desafios contemporâneos para a proteção de seus territórios contra invasões e o desmatamento. O Projeto Yarã atua como um aliado tecnológico na documentação de sua língua e na amplificação de suas vozes para o mundo.</p>
             </div>
             
-            <div class="cta-center">
+            <div style="text-align: center; margin-top: 40px;">
                 <a href="../tradutor.html" class="btn-modern btn-primary">Traduzir para Tronco Jê</a>
             </div>
         </div>
@@ -74,6 +144,10 @@
     </footer>
 
     <script src="../../assets/js/map_generator.js"></script>
-    <script src="../../assets/js/etnia.js"></script>
+    <script>
+        // Injetar o mapa e destacar a região
+        injectMap('miniMap');
+        highlightRegion('centro');
+    </script>
 </body>
 </html>
