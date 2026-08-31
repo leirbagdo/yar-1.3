@@ -6,61 +6,16 @@
     <title>Nossa Voz - Yarã</title>
     <link rel="stylesheet" href="../assets/css/modern.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .voice-page { padding: 120px 5% 60px; }
-        .voice-intro { text-align: center; max-width: 800px; margin: 0 auto 60px; }
-        .quote-card {
-            padding: 40px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        .quote-text {
-            font-size: 1.5rem;
-            font-style: italic;
-            line-height: 1.6;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        .quote-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .author-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--bg-dark);
-        }
-        .author-info h4 { color: var(--accent); margin: 0; }
-        .author-info p { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
-        .fa-quote-left {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 4rem;
-            opacity: 0.05;
-            color: var(--accent);
-        }
-    </style>
 </head>
 <body>
     <div class="pattern-bg"></div>
     <nav class="nav-modern glass">
         <div class="logo-area">
             <img src="../img/yara94.png" alt="Logo Yarã">
-            <span style="font-weight: 800; color: var(--accent);">YARÃ</span>
+            <span class="brand-text">YARÃ</span>
         </div>
         <div class="nav-links">
-            <a href="/yara-web/index.html">Home</a>
+            <a href="../index.html">Home</a>
             <a href="nossa-voz.html" class="active">Nossa Voz</a>
             <a href="biblioteca.html">Biblioteca</a>
             <a href="timeline.html">História</a>
@@ -73,11 +28,40 @@
 
     <main class="voice-page fade-in">
         <div class="voice-intro">
-            <h1 style="font-size: 3rem; color: var(--accent);">Nossa Voz, Nossa Memória</h1>
+            <h1 class="page-title-lg">Nossa Voz, Nossa Memória</h1>
             <p>Mais do que palavras traduzidas, preservamos os sentimentos e as visões de mundo de quem vive e protege a ancestralidade no Maranhão.</p>
         </div>
+                <div class="glass quote-card" style="margin-top:50px;">
+                    <h2 style="color: var(--accent); margin-bottom:20px;">
+                    Compartilhe sua voz
+                </h2>
 
-        <div class="quote-card glass card-hover-effect">
+                <textarea
+                    id="novoRelato"
+                    placeholder="Escreva sua história, memória ou mensagem..."
+                    style="
+                        width:100%;
+                        min-height:120px;
+                        background:rgba(255,255,255,0.05);
+                        border:1px solid rgba(255,255,255,0.1);
+                        border-radius:12px;
+                        padding:15px;
+                        color:var(--text-main);
+                        resize:vertical;
+                    "
+                ></textarea>
+
+    <button
+        onclick="publicarRelato()"
+        class="btn-modern btn-primary"
+        style="margin-top:15px;"
+    >
+        Publicar Relato
+    </button>
+</div>
+
+            <div id="feedRelatos"></div>
+                    <div class="quote-card glass card-hover-effect">
             <i class="fas fa-quote-left"></i>
             <p class="quote-text">"A língua é a pele da nossa alma. Quando falamos nossa língua, as árvores nos escutam melhor e os espíritos dos nossos avós sorriem."</p>
             <div class="quote-author">
@@ -101,36 +85,7 @@
             </div>
         </div>
 
-        <div class="glass quote-card" style="margin-top:50px;">
-    <h2 style="color: var(--accent); margin-bottom:20px;">
-        Compartilhe sua voz
-    </h2>
-
-    <textarea
-        id="novoRelato"
-        placeholder="Escreva sua história, memória ou mensagem..."
-        style="
-            width:100%;
-            min-height:120px;
-            background:rgba(255,255,255,0.05);
-            border:1px solid rgba(255,255,255,0.1);
-            border-radius:12px;
-            padding:15px;
-            color:var(--text-main);
-            resize:vertical;
-        "
-    ></textarea>
-
-    <button
-        onclick="publicarRelato()"
-        class="btn-modern btn-primary"
-        style="margin-top:15px;"
-    >
-        Publicar Relato
-    </button>
-</div>
-
-<div id="feedRelatos"></div>
+        
 
         <div style="text-align: center; margin-top: 60px;">
             <p style="color: var(--text-muted);">Você faz parte de uma comunidade indígena e quer compartilhar sua voz?</p>
@@ -138,72 +93,12 @@
         </div>
     </main>
 
+        
+    </main>
+    <script src="../assets/js/publicarRelato.js"></script>
+
     <footer class="modern-footer">
         <p>&copy; 2026 Projeto Yarã. Feito por pessoas, para pessoas.</p>
     </footer>
-
-    <script>
-let relatos = JSON.parse(localStorage.getItem("relatosYara")) || [];
-
-function carregarRelatos() {
-    const feed = document.getElementById("feedRelatos");
-
-    feed.innerHTML = "";
-
-    relatos.forEach(relato => {
-        feed.innerHTML += `
-            <div class="quote-card glass card-hover-effect">
-                <i class="fas fa-quote-left"></i>
-
-                <p class="quote-text">
-                    "${relato.texto}"
-                </p>
-
-                <div class="quote-author">
-                    <div class="author-img">
-                        ${relato.autor.substring(0,2).toUpperCase()}
-                    </div>
-
-                    <div class="author-info">
-                        <h4>${relato.autor}</h4>
-                        <p>${relato.data}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-}
-
-function publicarRelato() {
-    const texto = document.getElementById("novoRelato").value;
-
-    if(texto.trim() === "") {
-        alert("Escreva um relato antes de publicar.");
-        return;
-    }
-
-    const autor = prompt("Qual é o seu nome?");
-
-    if(!autor) return;
-
-    relatos.unshift({
-        texto: texto,
-        autor: autor,
-        data: new Date().toLocaleDateString("pt-BR")
-    });
-
-    localStorage.setItem(
-        "relatosYara",
-        JSON.stringify(relatos)
-    );
-
-    document.getElementById("novoRelato").value = "";
-
-    carregarRelatos();
-}
-
-carregarRelatos();
-</script>
-
 </body>
 </html>

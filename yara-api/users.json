@@ -82,5 +82,12 @@
     "email": "rnrnwrgpwgpngknkp@gmal.com",
     "senha": "$2b$10$NufK.0FUl2jb9PE7pQPQueTLVyPzsCWl09EKMGR4FFufmgVXPxbdi",
     "role": "user"
+  },
+  {
+    "id": 1788209183635,
+    "nome": "breno",
+    "email": "breno@gmail.com",
+    "senha": "$2b$10$UZGElMkkVkb.dSN4H0mEHOSm/aWrBBr9VWse/S75WeZiRYzoxDClK",
+    "role": "user"
   }
 ]

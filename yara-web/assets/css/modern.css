@@ -94,7 +94,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* Pattern */
 .pattern-bg {
-  background: url('https://i.ibb.co/6NPQ4hF/pattern.png');
   opacity: 0.05;
   position: absolute;
   inset: 0;
