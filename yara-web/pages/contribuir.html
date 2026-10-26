@@ -54,20 +54,21 @@
             <div class="glass contribution-panel">
                 <h2 class="u-text-accent u-mb-20">Sugira uma Tradução</h2>
                 <p class="u-text-muted u-mb-30">Ajude-nos a manter o dicionário atualizado enviando termos e variações regionais.</p>
-                <form>
+                <form id="form-traducao" action="/api/sugestoes" method="POST" novalidate>
                     <div class="form-group">
-                        <label>Sua Etnia / Comunidade</label>
-                        <input type="text" class="form-control" placeholder="Ex: Guajajara de Arariboia">
+                        <label for="etnia">Sua Etnia / Comunidade</label>
+                        <input type="text" id="etnia" name="etnia" class="form-control" placeholder="Ex: Guajajara de Arariboia" required>
                     </div>
                     <div class="form-group">
-                        <label>Palavra em Português</label>
-                        <input type="text" class="form-control">
+                        <label for="palavra">Palavra em Português</label>
+                        <input type="text" id="palavra" name="palavra_portugues" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Tradução Sugerida</label>
-                        <input type="text" class="form-control">
+                        <label for="traducao">Tradução Sugerida</label>
+                        <input type="text" id="traducao" name="traducao_sugerida" class="form-control" required>
                     </div>
-                    <button type="button" class="btn-modern btn-primary u-w-100">Enviar Sugestão</button>
+                    <button type="submit" class="btn-modern btn-primary u-w-100">Enviar Sugestão</button>
+                    <p id="form-status" role="status" aria-live="polite" style="margin-top:12px;text-align:center;"></p>
                 </form>
             </div>
 
@@ -90,5 +91,7 @@
     <footer class="modern-footer">
         <p>&copy; 2026 Projeto Yarã. Juntos preservando a voz do Maranhão.</p>
     </footer>
+
+    <script src="/yara-api/uploads/contribuir.js" defer></script>
 </body>
 </html>
